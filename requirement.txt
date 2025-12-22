@@ -1,0 +1,48 @@
+# Laravel + MSSQL Project Requirements
+
+# 1. System
+Windows 10/11 (64-bit)
+XAMPP with PHP 8.2 (ZTS x64)
+Microsoft SQL Server (Express or Developer)
+Visual C++ 2015–2022 Redistributable (x64)
+Composer
+
+# 2. PHP Extensions
+php_sqlsrv_82_ts_x64.dll
+php_pdo_sqlsrv_82_ts_x64.dll
+
+# 3. SQL Server Setup
+- TCP/IP enabled
+- Port: 1433
+- SQL Server and Windows Authentication mode
+- Firewall: allow inbound TCP 1433
+- Optional: allow sqlservr.exe
+
+# 4. Laravel Setup
+- Composer dependencies:
+    Run: composer install
+- .env file:
+    DB_CONNECTION=sqlsrv
+    DB_HOST=127.0.0.1
+    DB_PORT=1433
+    DB_DATABASE=your_db
+    DB_USERNAME=your_user
+    DB_PASSWORD=your_password
+- Clear cache:
+    php artisan config:clear
+    php artisan cache:clear
+- Run migrations:
+    php artisan migrate
+- Start server:
+    php artisan serve
+
+# 5. Git / Team
+- .gitignore:
+    /vendor
+    /node_modules
+    .env
+- Push/pull workflow:
+    git clone <repo-url>
+    git add .
+    git commit -m "message"
+    git push origin main
