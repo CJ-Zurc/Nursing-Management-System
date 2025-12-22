@@ -4,91 +4,151 @@ A Nursing Management System for Web Development and Database Administration cour
 =======
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
+<!-- Nursing Management System README - cleaned and formatted -->
+# Nursing Management System
+
+A Nursing Management System scaffold for teaching and development (Laravel + MSSQL).
+
 <p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+  <a href="https://laravel.com"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="300" alt="Laravel Logo"></a>
 </p>
 
-## About Laravel
+> Quick guide to get this project running on Windows (XAMPP + PHP 8.2) with Microsoft SQL Server.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Badges
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- Latest stable: [![Packagist Version](https://img.shields.io/packagist/v/laravel/framework)](https://packagist.org/packages/laravel/framework)
+- Last commit: [![Last Commit](https://img.shields.io/github/last-commit/CJ-Zurc/Nursing-Management-System)](https://github.com/CJ-Zurc/Nursing-Management-System)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## Quick Start
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+> Copy these commands to your terminal (PowerShell recommended on Windows).
 
-## Laravel Sponsors
+1. Install PHP dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```powershell
+composer install
+```
 
-### Premium Partners
+2. Create environment and app key
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+```powershell
+copy .env.example .env
+php artisan key:generate
+```
+
+3. Configure `.env` (database settings) — see "Database (MSSQL)" below.
+
+4. Run migrations
+
+```powershell
+php artisan migrate
+```
+
+5. Start local server
+
+```powershell
+php artisan serve
+# then open http://127.0.0.1:8000
+```
+
+---
+
+## Requirements
+
+- Windows 10/11 (64-bit)
+- XAMPP with PHP 8.2
+- Microsoft SQL Server (Express/Developer)
+- ODBC Driver 18 for SQL Server
+- Visual C++ 2015–2022 Redistributable (x64)
+- Composer
+
+---
+
+## Database (MSSQL) — concise setup
+
+1. Enable TCP/IP for your SQL Server instance (SQL Server Configuration Manager).
+2. Open TCP port 1433 (or your chosen port) in Windows Firewall.
+3. Create database and SQL login for the app.
+4. Use this example `.env` block:
+
+```ini
+DB_CONNECTION=sqlsrv
+DB_HOST=127.0.0.1
+DB_PORT=1433
+DB_DATABASE=your_database
+DB_USERNAME=sa
+DB_PASSWORD=YourStrong!Passw0rd
+```
+
+Notes:
+- Use `127.0.0.1` instead of `localhost` to avoid named-pipe problems.
+- Ensure SQL Server allows SQL authentication (mixed mode).
+
+---
+
+## PHP & SQLSRV extensions (XAMPP)
+
+1. Download the SQLSRV drivers matching PHP 8.2 and your build (TS/NTS) from Microsoft.
+2. Place the matching DLLs in `C:\xampp\php\ext` (examples):
+
+- `php_sqlsrv_82_ts_x64.dll`
+- `php_pdo_sqlsrv_82_ts_x64.dll`
+
+3. In `C:\xampp\php\php.ini`, add lines:
+
+```ini
+extension=php_sqlsrv_82_ts_x64.dll
+extension=php_pdo_sqlsrv_82_ts_x64.dll
+```
+
+4. Restart Apache and verify with `php -m` — expect `sqlsrv` and `pdo_sqlsrv` listed.
+
+---
+
+## Common commands
+
+```powershell
+# install dependencies
+composer install
+# generate key
+php artisan key:generate
+# run migrations
+php artisan migrate
+# clear config cache
+php artisan config:clear
+php artisan cache:clear
+```
+
+---
+
+## Troubleshooting
+
+- If migrations fail, confirm `pdo_sqlsrv` & `sqlsrv` are enabled and the ODBC driver matches PHP 8.2.
+- Check XAMPP Apache error logs: `C:\xampp\apache\logs\error.log`.
+- Test SQL connectivity from PowerShell:
+
+```powershell
+Test-NetConnection -ComputerName 127.0.0.1 -Port 1433
+```
+
+---
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Add features, run tests (if any), and open a PR.
+- Keep secrets out of the repo — `.env` should remain local.
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
->>>>>>> c433e6c (Laravel Setup)
+This project is licensed under the MIT License.
 
-# Laravel + MSSQL Project Setup (PHP 8.2, Windows)
-
-This guide helps you set up the Laravel project using **XAMPP with PHP 8.2** and **Microsoft SQL Server**. Follow it carefully to avoid common SQLSRV and connection issues.
-
----
-
-## 1. Requirements
-
-- **Windows 10/11** (64-bit)
-- **XAMPP** with PHP 8.2  
-  [Download here](https://www.apachefriends.org/download.html)
-- **Microsoft SQL Server** (Express or Developer edition)
-- **ODBC Driver 18 for SQL Server**  
-  [Download here](https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server)
-- **Visual C++ 2015–2022 Redistributable (x64)**  
-  [Download here](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
-- **Composer**  
-  [Download here](https://getcomposer.org/)
-
----
-
-## 2. Clone the Repository
-
-```bash
-git clone https://github.com/your-username/your-repo.git
-cd your-repo
 3. Install PHP Dependencies
 bash
 Copy code
@@ -183,6 +243,7 @@ Open your browser:
 cpp
 Copy code
 http://127.0.0.1:8000
+
 9. Git & Team Setup
 Add .gitignore to exclude:
 
@@ -201,7 +262,7 @@ git push origin main
 Team members should clone the repository, install dependencies, configure .env, and run migrations.
 
 10. Notes / Tips
-Ensure all team members use PHP 8.2 ZTS x64 and the correct SQLSRV DLLs
+Ensure everyone use PHP 8.2 ZTS x64 and the correct SQLSRV DLLs
 
 Test TCP connectivity if migrations fail:
 
@@ -213,3 +274,120 @@ Always remove old DLLs in ext before adding a new version
 Use 127.0.0.1 instead of localhost in .env
 
 For remote SQL Server, ensure firewall and ports are configured correctly
+
+
+
+
+<p align=center> FOR TEAM MEMBERS FOLLOW </p>
+
+
+📌 Project Requirements
+
+Windows 10/11
+
+XAMPP (PHP 8.2+)
+
+Composer
+
+Git
+
+Microsoft SQL Server
+
+ODBC Driver 18 for SQL Server
+
+📥 Required Downloads
+
+XAMPP: https://www.apachefriends.org/download.html
+
+Composer: https://getcomposer.org/download/
+
+Git: https://git-scm.com/downloads
+
+SQL Server Express: https://www.microsoft.com/en-us/sql-server/sql-server-downloads
+
+SSMS: https://learn.microsoft.com/en-us/sql/ssms/download-sql-server-management-studio-ssms
+
+ODBC Driver: https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server
+
+PHP SQLSRV Driver: https://learn.microsoft.com/en-us/sql/connect/php/download-drivers-php-sql-server
+
+⚙️ Local Setup Instructions
+1️⃣ Start XAMPP
+
+Open XAMPP Control Panel
+
+Start Apache
+
+2️⃣ Enable SQL Server PHP Extensions
+
+Copy these files into:
+
+C:\xampp\php\ext
+
+
+php_sqlsrv_82_ts_x64.dll
+php_pdo_sqlsrv_82_ts_x64.dll
+
+Edit php.ini:
+
+extension=php_sqlsrv_82_ts_x64.dll
+extension=php_pdo_sqlsrv_82_ts_x64.dll
+
+Restart Apache.
+
+3️⃣ Clone the Repository
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+
+4️⃣ Install Dependencies
+composer install
+
+5️⃣ Environment Configuration
+
+Copy .env.example:
+
+copy .env.example .env
+
+
+Edit .env:
+
+DB_CONNECTION=sqlsrv
+DB_HOST=127.0.0.1
+DB_PORT=1433
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
+
+6️⃣ Generate App Key
+php artisan key:generate
+
+7️⃣ Run Migrations
+php artisan migrate
+
+8️⃣ Run the Application
+php artisan serve
+
+
+Access:
+
+http://127.0.0.1:8000
+
+🧑‍💻 Team Notes
+
+Do NOT commit .env
+
+Use feature branches
+
+Pull before pushing changes
+
+✅ Tech Stack
+
+Laravel
+
+PHP
+
+Apache (XAMPP)
+
+Microsoft SQL Server
+
+GitHub
