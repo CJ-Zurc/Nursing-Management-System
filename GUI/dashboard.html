@@ -10,34 +10,123 @@
 
 <body>
     <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 d-md-block bg-light sidebar shadow" style="min-height: 100vh;">
-                <div class="sidebar-sticky p-3">
-                    <ul class="nav flex-column h-100">
-                        <li class="nav-item grow">
-
-                            <h5 class="mb-3">Hospital Name</h5>
-                            <a class="nav-link active" href="#dashboard">Dashboard</a>
+        <div class="row min-vh-100">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar shadow p-0">
+                <div class="sidebar-sticky p-3 d-flex flex-column h-100" style="min-height: 100vh;">
+                    <h5 class="mb-4 text-primary">Hospital Name</h5>
+                    <ul class="nav flex-column flex-grow-1">
+                        <li class="nav-item mb-2">
+                            <a class="nav-link active" href="#dashboard">
+                                <span class="me-2"><i class="bi bi-speedometer2"></i></span>
+                                Dashboard
+                            </a>
                         </li>
-                        <li class="nav-item grow">
-                            <a class="nav-link" href="#nurses">Nurses</a>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link" href="#nurses">
+                                <span class="me-2"><i class="bi bi-person-badge"></i></span>
+                                Nurses
+                            </a>
                         </li>
-                        <li class="nav-item grow">
-                            <a class="nav-link" href="#schedules">Schedules</a>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link" href="#schedules">
+                                <span class="me-2"><i class="bi bi-calendar-event"></i></span>
+                                Schedules
+                            </a>
                         </li>
-                        <li class="nav-item grow">
-                            <a class="nav-link" href="#reports">Reports</a>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link" href="#reports">
+                                <span class="me-2"><i class="bi bi-bar-chart"></i></span>
+                                Reports
+                            </a>
                         </li>
-                        <li class="nav-item grow">
-                            <a class="nav-link" href="#settings">Settings</a>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link" href="#settings">
+                                <span class="me-2"><i class="bi bi-gear"></i></span>
+                                Settings
+                            </a>
                         </li>
                     </ul>
+                    <div class="mt-auto">
+                        <a class="btn btn-outline-danger w-100" href="#logout">
+                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                        </a>
+                    </div>
                 </div>
             </nav>
-            <main class="col-md-10">
-                <!-- Main content goes here -->
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <!-- Top Layer -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h3 class="mb-0">Dashboard</h3>
+                        <small class="text-muted">System Overview</small>
+                    </div>
+                    <div>
+                        <!-- Profile dropdown or notifications can go here -->
+                        <button class="btn btn-outline-secondary d-none d-md-inline-block">
+                            <i class="bi bi-bell"></i>
+                        </button>
+                        <button class="btn btn-outline-primary d-none d-md-inline-block">
+                            <i class="bi bi-person-circle"></i>
+                        </button>
+                    </div>
+                </div>
+                <!-- Main Cards Row -->
+                <div class="row g-4">
+                    <!-- New Patients Section -->
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card h-100 shadow-sm border-primary">
+                            <div class="card-body">
+                                <h5 class="card-title">New Patients</h5>
+                                <p class="card-text">Manage and view new patient registrations.</p>
+                                <a href="#new-patients" class="btn btn-primary btn-sm">View Patients</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Appointments Section -->
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card h-100 shadow-sm border-success">
+                            <div class="card-body">
+                                <h5 class="card-title">Appointments</h5>
+                                <p class="card-text">Schedule and track patient appointments.</p>
+                                <a href="#appointments" class="btn btn-success btn-sm">View Appointments</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Current Nurses Section -->
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card h-100 shadow-sm border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Current Nurses</h5>
+                                <p class="card-text">View the current nurses and their assignments.</p>
+                                <a href="#current-nurses" class="btn btn-info btn-sm text-white">View Nurses</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Current Medicines Section -->
+                    <div class="col-sm-6 col-lg-3">
+                        <div class="card h-100 shadow-sm border-warning">
+                            <div class="card-body">
+                                <h5 class="card-title">Current Medicines</h5>
+                                <p class="card-text">View and manage current medicine inventory.</p>
+                                <a href="#current-medicines" class="btn btn-warning btn-sm text-white">View Inventory</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Optional: Add a summary or quick stats row below cards -->
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <div class="alert alert-info" role="alert">
+                            Welcome to the Nurse Management System dashboard. Use the sidebar to navigate through the system.
+                        </div>
+                    </div>
+                </div>
             </main>
         </div>
+        <!-- Bootstrap Icons CDN -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
