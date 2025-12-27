@@ -45,7 +45,7 @@ ul, ol {
 
 /* Images */
 img {
-    max-width: 100%;
+    max-width: auto;
     height: auto;
     display: block;
 }
@@ -71,3 +71,6 @@ input:focus, textarea:focus, select:focus {
     border-color: #0066cc;
     box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
 }
+
+/* Containers */
+

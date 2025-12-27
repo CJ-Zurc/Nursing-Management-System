@@ -28,30 +28,24 @@
 
     <!--Picture slideshow-->
     <section id="slideshow" class="py-5">
-        <div class="container">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+        <div class="container-fluid">
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="max-height: 400px; overflow: hidden;">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                <img src="C:\Users\USER\Desktop\Web Dev\Nursing-Management-System\GUI\Assets\Slideshow\Nurse 1.jpg" class="d-block w-100" alt="Slide 1" style="max-height: 400px; object-fit: cover;">
                 </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="C:\Users\USER\Desktop\Web Dev\Nursing-Management-System\GUI\Assets\Slideshow\Nurse 1.jpg" class="d-block w-100" alt="Slide 1">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="C:\Users\USER\Desktop\Web Dev\Nursing-Management-System\GUI\Assets\Slideshow\Nurse 2.jpg" class="d-block w-100" alt="Slide 2">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="C:\Users\USER\Desktop\Web Dev\Nursing-Management-System\GUI\Assets\Slideshow\Nurse 3.jpg" class="d-block w-100" alt="Slide 3">
-                    </div>
+                <div class="carousel-item">
+                <img src="C:\Users\USER\Desktop\Web Dev\Nursing-Management-System\GUI\Assets\Slideshow\Nurse 2.jpg" class="d-block w-100" alt="Slide 2" style="max-height: 400px; object-fit: cover;">
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                </button>
+                <div class="carousel-item">
+                <img src="C:\Users\USER\Desktop\Web Dev\Nursing-Management-System\GUI\Assets\Slideshow\Nurse 3.jpg" class="d-block w-100" alt="Slide 3" style="max-height: 400px; object-fit: cover;">
+                </div>
+            </div>
             </div>
         </div>
     </section>
@@ -61,13 +55,13 @@
         <div class="container text-center">
             <h1 class="display-4">Welcome to Nursing Management System</h1>
             <p class="lead">Efficient healthcare management solutions</p>
-            <button class="btn btn-primary btn-lg">Get Started</button>
+            <a href="loginPage.html" class="btn btn-primary btn-lg">Get Started</a>
         </div>
     </section>
 
     <!-- Main Content -->
     <section id="about" class="py-5">
-        <div class="container">
+        <div class="container - fluid">
             <h2 class="mb-4">About</h2>
             <p>A Nursing Management System for Web Development and Database Administration courses project</p>
         </div>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Nursing Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<script src="script.js"></script>
+<body>
+    <style>
+        body {
+            background-color: rgba(89, 86, 86, 0.8);
+            background-image: url('C:/Users/USER/Desktop/Web Dev/Nursing-Management-System/GUI/Assets/Slideshow/Nurse 1.jpg');
+            background-size: cover;
+            background-position: center;
+            
+        }
+    </style>
+    <style>
+        .shadow-square {
+            width: 540px;
+            height: 350px;
+            background-color: rgb(183, 226, 245);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            margin: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 15px;
+        }
+        </style>
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+            <div class="shadow-square">
+                <!-- Login Form -->
+                <form class="p-4">
+                    <h2 class="text-center">Log In</h2>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" placeholder="Enter username">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="Enter password">
+                    </div>
+                    <!--Log in button-->
+                    <div class="text-right">
+                        <button type="submit" class="btn btn-primary" id="loginButton">Login</button>
+                    </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+    </html>
