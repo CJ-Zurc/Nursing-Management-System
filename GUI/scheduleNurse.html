@@ -62,6 +62,43 @@
                     </div>
                 </div>
             </nav>
+
+            <!-- Main Content -->
+            <main class="col-md-10 ms-sm-auto px-4 py-4">
+                <h2 class="mb-4">Nurse Schedule Calendar</h2>
+                <div id="calendar"></div>
+            </main>
         </div>
-    </body>
+    </div>
+
+    <!-- FullCalendar CSS & JS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                height: 600,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                events: [
+                    // Example events
+                    {
+                        title: 'Morning Shift - Nurse A',
+                        start: new Date().toISOString().slice(0,10)
+                    },
+                    {
+                        title: 'Night Shift - Nurse B',
+                        start: new Date(new Date().setDate(new Date().getDate() + 2)).toISOString().slice(0,10)
+                    }
+                ]
+            });
+            calendar.render();
+        });
+    </script>
+</body>
 </html>
