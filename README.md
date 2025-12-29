@@ -160,9 +160,3 @@ The application will typically be available at `http://127.0.0.1:8000` unless `p
 
 ---
 
-If you want, I can also:
-
-- extract common commands into a `scripts/setup.sh` (or `setup.ps1`) for automation, or
-- add a short one-paragraph summary at the top for quickstart.
-
-Config changes saved to `README.md`.
