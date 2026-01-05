@@ -1,5 +1,5 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
-@import 'tailwindcss';
+
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -10,3 +10,79 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
+
+
+
+/* Root container for the login page */
+.login-page-root {
+
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    width: 100vw;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #fffcfc 10%, #ffe8e8 30%, #b0bcf4 90%, #7e90e4 100%);
+    overflow: hidden;
+}
+
+/* ECG area on the left */
+.login-page-root .ecg-area {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 55vw;
+    max-width: 920px;
+    pointer-events: none;
+    display: block;
+    z-index: 0;
+    opacity: 0.98;
+}
+
+.login-page-root .ecg-area svg {
+    height: 100%;
+    width: 2600px; 
+    min-width: 1400px;
+    display: block;
+    transform: translateX(0);
+    stroke-linejoin: round;
+    stroke-linecap: round;
+}
+
+.login-page-root .ecg-line {
+    stroke: rgba(82, 224, 122, 0.95);
+    fill: none;
+}
+
+/* Two layer styles for variety */
+.login-page-root .ecg-layer1 {
+    stroke-width: 2.6;
+    stroke-opacity: 0.98;
+    filter: drop-shadow(0 0 8px rgba(167, 255, 187, 0.85));
+    animation: ecg-scroll 8.0s linear infinite;
+}
+
+.login-page-root .ecg-layer2 {
+    stroke-width: 1.6;
+    stroke-opacity: 0.55;
+    filter: blur(0.6px) drop-shadow(0 0 6px rgba(183,245,201,0.55));
+    transform: translateY(6px);
+    animation: ecg-scroll 6.2s linear infinite reverse;
+}
+
+@keyframes ecg-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-1200px); }
+}
+
+/* Ensure the login card sits above the ECG background */
+.login-page-root .card {
+    position: relative;
+    z-index: 5;
+}
+
+
+
+

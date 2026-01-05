@@ -115,14 +115,8 @@ php artisan cache:clear
 Run database migrations (ensure `.env` is set correctly before this):
 
 ```bash
-php artisan migrate
-```
-
-If you need to run seeders:
-
-```bash
-php artisan db:seed
-```
+php artisan key:generate
+php artisan db:schema
 
 ## 7 — Frontend (Vite + npm)
 
