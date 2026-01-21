@@ -17,17 +17,16 @@ BEGIN
 
     /* ---------- PATIENT DOMAIN ---------- */
     EXEC sp_create_patient;
-    EXEC sp_create_inpatient;
-    EXEC sp_create_outpatient;
     EXEC sp_create_allergy;
-    EXEC sp_create_condition_at_birth;
-    EXEC sp_create_inventory;
+    EXEC sp_create_condition;
 
     /* ---------- CHART DOMAIN ---------- */
     EXEC sp_create_chart;
     EXEC sp_create_medication;
     EXEC sp_create_diagnosis;
     EXEC sp_create_vital_sign;
-    EXEC sp_create_procedure;
+    EXEC sp_create_medication_schedule;
+    EXEC sp_create_notes;
+    EXEC sp_create_logs;
 END;
 GO

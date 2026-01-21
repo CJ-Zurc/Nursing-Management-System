@@ -10,20 +10,27 @@ BEGIN
 
     CREATE TABLE [PATIENT] (
         PatientID INT IDENTITY(1,1) PRIMARY KEY,
-        WardID INT,
+        WardID INT NOT NULL,
         first_name NVARCHAR(100) NOT NULL,
         last_name NVARCHAR(100) NOT NULL,
         dateOfBirth DATE,
-        Sex NVARCHAR(10),
+        Sex NVARCHAR(10) NOT NULL,
         contact_Number NVARCHAR(20),
         Guardian NVARCHAR(100),
         guardian_Number NVARCHAR(20),
         address NVARCHAR(200),
-        height FLOAT,
-        weight FLOAT,
+        height FLOAT NOT NULL,
+        weight FLOAT NOT NULL,
         blood_type NVARCHAR(10),
-        patientType NVARCHAR(50),
-        CONSTRAINT FK_Patient_Ward FOREIGN KEY (WardID) REFERENCES [WARD](WardID)
+        roomNumber NVARCHAR(20) NOT NULL,
+        bedNumber NVARCHAR(20) NOT NULL,
+        admission_date DATE,
+        discharge_date DATE,
+        attending_physician NVARCHAR(100),
+        patient_status NVARCHAR(50) DEFAULT 'Admitted',
+        isActive BIT DEFAULT 1,
+        CONSTRAINT FK_Patient_Ward 
+            FOREIGN KEY (WardID) REFERENCES [WARD](WardID)
     );
 END;
 GO

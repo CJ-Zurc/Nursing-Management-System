@@ -11,9 +11,10 @@ BEGIN
     CREATE TABLE [DIAGNOSIS] (
         DiagID INT IDENTITY(1,1) PRIMARY KEY,
         ChartID INT NOT NULL,
-        diagnosisName NVARCHAR(100),
-        description NVARCHAR(255),
+        diagnosisName NVARCHAR (100),
+        descriptions NVARCHAR(255),
         status NVARCHAR(50),
+        date_recorded DATETIME DEFAULT GETDATE(),
 
         CONSTRAINT FK_Diagnosis_Chart 
             FOREIGN KEY (ChartID) REFERENCES [CHART](ChartID)

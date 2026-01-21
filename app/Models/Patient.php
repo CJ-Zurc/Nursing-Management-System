@@ -23,7 +23,6 @@ class Patient extends Model
         'height',
         'weight',
         'blood_type',
-        'patientType',
     ];
 
     // Relationships (future use)

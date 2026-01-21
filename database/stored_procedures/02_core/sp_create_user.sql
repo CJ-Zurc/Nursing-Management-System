@@ -14,7 +14,7 @@ BEGIN
         last_name NVARCHAR(100) NOT NULL,
         contact_number NVARCHAR(20),
         email NVARCHAR(150) UNIQUE NOT NULL,
-        [password] NVARCHAR(255) NOT NULL,
+        [password] NVARCHAR(255) NOT NULL CHECK (LEN([password]) >= 8),
         created_at DATETIME DEFAULT GETDATE(),
         system_role NVARCHAR(50) NOT NULL
     );

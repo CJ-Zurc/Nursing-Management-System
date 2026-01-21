@@ -7,15 +7,24 @@ use Illuminate\Database\Eloquent\Model;
 class Medication extends Model
 {
     protected $table = 'MEDICATION';
-    protected $primaryKey = 'MedicationID';
+    protected $primaryKey = 'MedID';
     public $timestamps = false;
 
     protected $fillable = [
-        'ChartID',
+        'PatientID',
         'medicine_name',
-        'dosage',
-        'frequency',
-        'start_date',
-        'end_date',
+        'quantity',
+        'expiry_dates',
+        'statuses',
+        'medicine_notes',
     ];
-}
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'PatientID');
+    }
+
+    public function schedule()
+    {
+        return $this->hasMany(MedicationSchedule::class, 'MedID');
+    }

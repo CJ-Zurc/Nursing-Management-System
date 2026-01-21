@@ -1,0 +1,83 @@
+/* Table Responsive Container */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-right: 0;
+    margin-left: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Prevent table from merging with sidebar on horizontal scroll */
+.table-responsive::before {
+    content: '';
+    display: block;
+}
+
+/* Ensure sidebar stays on top during scroll */
+.sidebar, nav[role="navigation"], aside {
+    position: relative;
+    z-index: 1050;
+}
+
+/* Table Text Overflow Handling */
+.table td, .table th {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Allow cell wrapping for specific columns if needed */
+.table td.text-wrap,
+.table th.text-wrap {
+    max-width: none;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
+}
+
+/* For columns that should allow multiple lines */
+.table td.multiline {
+    white-space: normal;
+    max-width: 300px;
+}
+
+/* Badge and status columns - no wrap needed */
+.table td.status-col,
+.table td.action-col {
+    white-space: nowrap;
+    max-width: none;
+}
+
+/* Name columns - allow limited lines */
+.table td.name-col {
+    max-width: 250px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+/* Address and long text columns */
+.table td.address-col,
+.table td.notes-col,
+.table td.description-col {
+    max-width: 300px;
+    white-space: normal;
+    word-break: break-word;
+    overflow: visible;
+}
+
+/* Responsive adjustment for smaller screens */
+@media (max-width: 768px) {
+    .table td, .table th {
+        max-width: 100px;
+    }
+    
+    .table td.multiline,
+    .table td.address-col,
+    .table td.notes-col,
+    .table td.description-col {
+        max-width: 150px;
+    }
+}

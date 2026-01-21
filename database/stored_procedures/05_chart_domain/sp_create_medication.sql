@@ -10,14 +10,14 @@ BEGIN
 
     CREATE TABLE [MEDICATION] (
         MedID INT IDENTITY(1,1) PRIMARY KEY,
-        ChartID INT NOT NULL,
-        medicine_name NVARCHAR(100),
-        dosage NVARCHAR(50),
-        frequency NVARCHAR(50),
-        status NVARCHAR(50),
-
-        CONSTRAINT FK_Medication_Chart 
-            FOREIGN KEY (ChartID) REFERENCES [CHART](ChartID)
+        PatientID INT NOT NULL,
+        medicine_name NVARCHAR(100) NOT NULL,
+        quantity INT NOT NULL,
+        expiry_dates DATETIME,
+        statuses NVARCHAR(50) DEFAULT 'Active',
+        medicine_notes NVARCHAR(MAX),
+        created_at DATETIME DEFAULT GETDATE(),
+        CONSTRAINT FK_Medication_Patient FOREIGN KEY (PatientID) REFERENCES [PATIENT](PatientID)
     );
-END;
-GO
+END
+

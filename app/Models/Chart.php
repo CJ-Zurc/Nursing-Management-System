@@ -12,7 +12,6 @@ class Chart extends Model
 
     protected $fillable = [
         'PatientID',
-        'NurseID',
         'date_created',
     ];
 }

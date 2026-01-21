@@ -11,11 +11,16 @@ class VitalSign extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ChartID',
-        'temperature',
-        'blood_pressure',
-        'heart_rate',
-        'respiratory_rate',
-        'recorded_at',
+        'PatientID',
+        'vital_type',
+        'value',
+        'unit',
+        'time_taken',
+        'SystolicBP',
+        'DiastolicBP',
     ];
-}
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class, 'PatientID');
+    }
