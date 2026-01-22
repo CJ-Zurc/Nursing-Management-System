@@ -17,7 +17,9 @@ BEGIN
         statuses NVARCHAR(50) DEFAULT 'Active',
         medicine_notes NVARCHAR(MAX),
         created_at DATETIME DEFAULT GETDATE(),
-        CONSTRAINT FK_Medication_Patient FOREIGN KEY (PatientID) REFERENCES [PATIENT](PatientID)
+        CONSTRAINT FK_Medication_Patient FOREIGN KEY (PatientID) REFERENCES [PATIENT](PatientID),
+        CONSTRAINT CK_MEDICATION_QUANTITY CHECK (quantity >= 0),
+        CONSTRAINT CK_MEDICATION_STATUS CHECK (statuses IN ('Available', 'Out of Stock', 'Expired', 'Discontinued', 'Active'))
     );
 END
 

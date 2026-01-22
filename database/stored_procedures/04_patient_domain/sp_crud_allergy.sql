@@ -41,6 +41,16 @@ CREATE PROCEDURE sp_create_allergy_record
     @allergy_type NVARCHAR(50)
 AS
 BEGIN
+    -- Validate inputs
+    IF @allergen IS NULL OR @allergen = ''
+        THROW 50001, 'Allergen cannot be empty', 1;
+    IF @reaction IS NULL OR @reaction = ''
+        THROW 50002, 'Reaction cannot be empty', 1;
+    IF @severity NOT IN ('Mild', 'Moderate', 'Severe')
+        THROW 50003, 'Severity must be Mild, Moderate, or Severe', 1;
+    IF @allergy_type IS NULL OR @allergy_type = ''
+        THROW 50004, 'Allergy type cannot be empty', 1;
+    
     INSERT INTO [ALLERGY] (PatientID, allergen, reaction, severity, allergy_type)
     VALUES (@PatientID, @allergen, @reaction, @severity, @allergy_type);
     
@@ -61,6 +71,16 @@ CREATE PROCEDURE sp_update_allergy_record
     @allergy_type NVARCHAR(50)
 AS
 BEGIN
+    -- Validate inputs
+    IF @allergen IS NULL OR @allergen = ''
+        THROW 50001, 'Allergen cannot be empty', 1;
+    IF @reaction IS NULL OR @reaction = ''
+        THROW 50002, 'Reaction cannot be empty', 1;
+    IF @severity NOT IN ('Mild', 'Moderate', 'Severe')
+        THROW 50003, 'Severity must be Mild, Moderate, or Severe', 1;
+    IF @allergy_type IS NULL OR @allergy_type = ''
+        THROW 50004, 'Allergy type cannot be empty', 1;
+    
     UPDATE [ALLERGY]
     SET allergen = @allergen,
         reaction = @reaction,

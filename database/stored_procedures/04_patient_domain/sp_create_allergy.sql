@@ -11,11 +11,12 @@ BEGIN
     CREATE TABLE [ALLERGY] (
         AllergyID INT IDENTITY(1,1) PRIMARY KEY,
         PatientID INT NOT NULL,
-        allergen NVARCHAR(100),
-        reaction NVARCHAR(100),
-        severity NVARCHAR(50),
-        allergy_type NVARCHAR(50),
-        CONSTRAINT FK_Allergy_Patient FOREIGN KEY (PatientID) REFERENCES [PATIENT](PatientID)
+        allergen NVARCHAR(100) NOT NULL,
+        reaction NVARCHAR(100) NOT NULL,
+        severity NVARCHAR(50) NOT NULL,
+        allergy_type NVARCHAR(50) NOT NULL,
+        CONSTRAINT FK_Allergy_Patient FOREIGN KEY (PatientID) REFERENCES [PATIENT](PatientID),
+        CONSTRAINT CK_ALLERGY_SEVERITY CHECK (severity IN ('Mild', 'Moderate', 'Severe'))
     );
 END;
 GO

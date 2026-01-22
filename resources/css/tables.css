@@ -14,26 +14,23 @@
     display: block;
 }
 
-/* Ensure sidebar stays on top during scroll */
+/* Ensure sidebar stays behind table during scroll */
 .sidebar, nav[role="navigation"], aside {
+    position: fixed;
+    z-index: 500;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+/* Container for tables should have higher z-index context */
+.tab-content, .card-body {
     position: relative;
-    z-index: 1050;
+    z-index: 1;
 }
 
-/* Table Text Overflow Handling */
-.table td, .table th {
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Allow cell wrapping for specific columns if needed */
-.table td.text-wrap,
-.table th.text-wrap {
-    max-width: none;
-    white-space: normal;
-    word-wrap: break-word;
+/* Make table wrapper establish new stacking context */
+.table-responsive {
+    isolation: isolate;
     word-break: break-word;
 }
 

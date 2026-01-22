@@ -540,6 +540,82 @@ class NurseController extends Controller
         return back()->with('success', 'Note added successfully');
     }
 
+    public function updateVitalSign(Request $request, $vitalId)
+    {
+        $validated = $request->validate([
+            'vital_type' => 'required|string',
+            'value' => 'required|numeric',
+            'unit' => 'required|string',
+            'SystolicBP' => 'nullable|numeric',
+            'DiastolicBP' => 'nullable|numeric',
+        ]);
+
+        DB::statement("EXEC sp_update_vital_sign_record
+            @VitalID = " . $vitalId . ",
+            @vital_type = N'" . str_replace("'", "''", $validated['vital_type']) . "',
+            @value = " . $validated['value'] . ",
+            @unit = N'" . str_replace("'", "''", $validated['unit']) . "',
+            @SystolicBP = " . ($validated['SystolicBP'] ?? 'NULL') . ",
+            @DiastolicBP = " . ($validated['DiastolicBP'] ?? 'NULL') . "
+        ");
+
+        return back()->with('success', 'Vital sign updated successfully');
+    }
+
+    public function deleteVitalSign($vitalId, $patientId)
+    {
+        DB::statement('EXEC sp_delete_vital_sign_record @VitalID = ' . $vitalId);
+        return back()->with('success', 'Vital sign deleted successfully');
+    }
+
+    public function updateDiagnosis(Request $request, $diagnosisId)
+    {
+        $validated = $request->validate([
+            'diagnosisName' => 'required|string|max:100',
+            'descriptions' => 'required|string|max:500',
+            'status' => 'required|in:Active,Resolved,Under Review',
+        ]);
+
+        DB::statement("EXEC sp_update_diagnosis_record
+            @DiagID = " . $diagnosisId . ",
+            @diagnosisName = N'" . str_replace("'", "''", $validated['diagnosisName']) . "',
+            @descriptions = N'" . str_replace("'", "''", $validated['descriptions']) . "',
+            @status = N'" . $validated['status'] . "'
+        ");
+
+        return back()->with('success', 'Diagnosis updated successfully');
+    }
+
+    public function deleteDiagnosis($diagnosisId, $patientId)
+    {
+        DB::statement('EXEC sp_delete_diagnosis_record @DiagID = ' . $diagnosisId);
+        return back()->with('success', 'Diagnosis deleted successfully');
+    }
+
+    public function updateNote(Request $request, $noteId)
+    {
+        $validated = $request->validate([
+            'note_title' => 'required|string|max:100',
+            'note_description' => 'required|string|max:2000',
+            'note_priority' => 'required|in:Low,Medium,High',
+        ]);
+
+        DB::statement("EXEC sp_update_note_record
+            @NotesID = " . $noteId . ",
+            @note_title = N'" . str_replace("'", "''", $validated['note_title']) . "',
+            @note_description = N'" . str_replace("'", "''", $validated['note_description']) . "',
+            @note_priority = N'" . $validated['note_priority'] . "'
+        ");
+
+        return back()->with('success', 'Note updated successfully');
+    }
+
+    public function deleteNote($noteId, $patientId)
+    {
+        DB::statement('EXEC sp_delete_note_record @NotesID = ' . $noteId);
+        return back()->with('success', 'Note deleted successfully');
+    }
+
     // ============ HELPER METHODS ============
     private function logAction($patientId, $action, $description)
     {

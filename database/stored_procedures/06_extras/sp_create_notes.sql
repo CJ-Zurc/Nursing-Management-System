@@ -11,13 +11,15 @@ BEGIN
     CREATE TABLE [NOTES] (
         NotesID INT IDENTITY(1,1) PRIMARY KEY,
         ChartID INT NOT NULL,
-        note_title NVARCHAR(100),
-        note_description NVARCHAR(MAX),
-        note_priority NVARCHAR(50),
+        note_title NVARCHAR(100) NOT NULL,
+        note_description NVARCHAR(MAX) NOT NULL,
+        note_priority NVARCHAR(50) NOT NULL,
         time_noted DATETIME DEFAULT GETDATE(),
 
         CONSTRAINT FK_Notes_Chart 
-            FOREIGN KEY (ChartID) REFERENCES [CHART](ChartID)
+            FOREIGN KEY (ChartID) REFERENCES [CHART](ChartID),
+        CONSTRAINT CK_NOTE_PRIORITY
+            CHECK (note_priority IN ('Low', 'Medium', 'High'))
     );
 END;
 GO
@@ -89,6 +91,18 @@ CREATE PROCEDURE sp_create_note_record
     @note_priority NVARCHAR(50)
 AS
 BEGIN
+    -- Validate inputs
+    IF @note_title IS NULL OR @note_title = ''
+        THROW 50020, 'Note title cannot be empty', 1;
+    IF LEN(@note_title) > 100
+        THROW 50021, 'Note title must be 100 characters or less', 1;
+    IF @note_description IS NULL OR @note_description = ''
+        THROW 50022, 'Note description cannot be empty', 1;
+    IF LEN(@note_description) > 2000
+        THROW 50023, 'Note description must be 2000 characters or less', 1;
+    IF @note_priority NOT IN ('Low', 'Medium', 'High')
+        THROW 50024, 'Priority must be Low, Medium, or High', 1;
+    
     INSERT INTO [NOTES] (ChartID, note_title, note_description, note_priority, time_noted)
     VALUES (@ChartID, @note_title, @note_description, @note_priority, GETDATE());
     
@@ -108,6 +122,18 @@ CREATE PROCEDURE sp_update_note_record
     @note_priority NVARCHAR(50)
 AS
 BEGIN
+    -- Validate inputs
+    IF @note_title IS NULL OR @note_title = ''
+        THROW 50020, 'Note title cannot be empty', 1;
+    IF LEN(@note_title) > 100
+        THROW 50021, 'Note title must be 100 characters or less', 1;
+    IF @note_description IS NULL OR @note_description = ''
+        THROW 50022, 'Note description cannot be empty', 1;
+    IF LEN(@note_description) > 2000
+        THROW 50023, 'Note description must be 2000 characters or less', 1;
+    IF @note_priority NOT IN ('Low', 'Medium', 'High')
+        THROW 50024, 'Priority must be Low, Medium, or High', 1;
+    
     UPDATE [NOTES]
     SET note_title = @note_title,
         note_description = @note_description,

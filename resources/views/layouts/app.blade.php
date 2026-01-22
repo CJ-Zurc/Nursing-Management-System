@@ -146,7 +146,7 @@
         <!-- Sidebar Navigation -->
         @auth
         <div class="sidebar">
-            <div class="brand">🏥 NMS</div>
+            <div class="brand">N.A.R.S</div>
             
             @if(auth()->user()->system_role === 'Admin')
                 <a href="{{ route('admin.dashboard') }}" class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">

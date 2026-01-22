@@ -33,7 +33,7 @@
                 <table class="table table-striped table-hover table-bordered" id="patientsTable">
                     <thead class="table-light">
                         <tr>
-                            <th style="max-width: 80px;">ID</th>
+                        
                             <th style="max-width: 200px;">Name</th>
                             <th style="max-width: 120px;">Ward</th>
                             <th style="max-width: 100px;">Room/Bed</th>
@@ -46,7 +46,6 @@
                     <tbody>
                         @forelse($patients as $patient)
                             <tr style="cursor: pointer;" onclick="window.location='{{ route('admin.patient.edit', $patient->PatientID) }}'">
-                                <td style="max-width: 80px;"><strong>#{{ $patient->PatientID }}</strong></td>
                                 <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="{{ $patient->first_name }} {{ $patient->last_name }}">{{ $patient->first_name }} {{ $patient->last_name }}</td>
                                 <td style="max-width: 120px;"><span class="badge bg-info">{{ $patient->WardName }}</span></td>
                                 <td style="max-width: 100px;">{{ $patient->roomNumber }}-{{ $patient->bedNumber }}</td>

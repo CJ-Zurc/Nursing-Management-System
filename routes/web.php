@@ -94,12 +94,18 @@ Route::middleware(['auth', 'role:Nurse'])->group(function () {
 
     // Vital Signs
     Route::post('/nurse/charts/{chartId}/vitals', [NurseController::class, 'storeVitalSign'])->name('nurse.vital.store');
+    Route::put('/nurse/vitals/{vitalId}', [NurseController::class, 'updateVitalSign'])->name('nurse.vital.update');
+    Route::delete('/nurse/vitals/{vitalId}/{patientId}', [NurseController::class, 'deleteVitalSign'])->name('nurse.vital.delete');
 
     // Diagnosis
     Route::post('/nurse/charts/{chartId}/diagnosis', [NurseController::class, 'storeDiagnosis'])->name('nurse.diagnosis.store');
+    Route::put('/nurse/diagnosis/{diagnosisId}', [NurseController::class, 'updateDiagnosis'])->name('nurse.diagnosis.update');
+    Route::delete('/nurse/diagnosis/{diagnosisId}/{patientId}', [NurseController::class, 'deleteDiagnosis'])->name('nurse.diagnosis.delete');
 
     // Notes
     Route::post('/nurse/charts/{chartId}/notes', [NurseController::class, 'storeNote'])->name('nurse.note.store');
+    Route::put('/nurse/notes/{noteId}', [NurseController::class, 'updateNote'])->name('nurse.note.update');
+    Route::delete('/nurse/notes/{noteId}/{patientId}', [NurseController::class, 'deleteNote'])->name('nurse.note.delete');
 
     // Export
     Route::get('/nurse/charts/{chartId}/vitals/export', [NurseController::class, 'exportVitals'])->name('nurse.vitals.export');

@@ -39,7 +39,7 @@ class AdminController extends Controller
         $search = $request->query('search', '');
         
         if ($search) {
-            $patients = DB::select('SELECT * FROM [PATIENT] WHERE CAST(PatientID AS NVARCHAR(MAX)) LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR contact_Number LIKE ?', 
+            $patients = DB::select('SELECT p.*, w.WardName FROM [PATIENT] p LEFT JOIN [WARD] w ON p.WardID = w.WardID WHERE CAST(p.PatientID AS NVARCHAR(MAX)) LIKE ? OR p.first_name LIKE ? OR p.last_name LIKE ? OR p.contact_Number LIKE ?', 
                 ['%' . $search . '%', '%' . $search . '%', '%' . $search . '%', '%' . $search . '%']);
         } else {
             $patients = DB::select('EXEC sp_read_all_patients');

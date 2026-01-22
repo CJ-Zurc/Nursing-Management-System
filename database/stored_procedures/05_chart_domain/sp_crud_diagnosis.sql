@@ -57,6 +57,18 @@ CREATE PROCEDURE sp_create_diagnosis_record
     @status NVARCHAR(50)
 AS
 BEGIN
+    -- Validate inputs
+    IF @diagnosisName IS NULL OR @diagnosisName = ''
+        THROW 50010, 'Diagnosis name cannot be empty', 1;
+    IF LEN(@diagnosisName) > 100
+        THROW 50011, 'Diagnosis name must be 100 characters or less', 1;
+    IF @descriptions IS NULL OR @descriptions = ''
+        THROW 50012, 'Description cannot be empty', 1;
+    IF LEN(@descriptions) > 255
+        THROW 50013, 'Description must be 255 characters or less', 1;
+    IF @status NOT IN ('Active', 'Resolved', 'Under Review')
+        THROW 50014, 'Status must be Active, Resolved, or Under Review', 1;
+    
     INSERT INTO [DIAGNOSIS] (ChartID, diagnosisName, descriptions, status, date_recorded)
     VALUES (@ChartID, @diagnosisName, @descriptions, @status, GETDATE());
     
@@ -76,6 +88,18 @@ CREATE PROCEDURE sp_update_diagnosis_record
     @status NVARCHAR(50)
 AS
 BEGIN
+    -- Validate inputs
+    IF @diagnosisName IS NULL OR @diagnosisName = ''
+        THROW 50010, 'Diagnosis name cannot be empty', 1;
+    IF LEN(@diagnosisName) > 100
+        THROW 50011, 'Diagnosis name must be 100 characters or less', 1;
+    IF @descriptions IS NULL OR @descriptions = ''
+        THROW 50012, 'Description cannot be empty', 1;
+    IF LEN(@descriptions) > 255
+        THROW 50013, 'Description must be 255 characters or less', 1;
+    IF @status NOT IN ('Active', 'Resolved', 'Under Review')
+        THROW 50014, 'Status must be Active, Resolved, or Under Review', 1;
+    
     UPDATE [DIAGNOSIS]
     SET diagnosisName = @diagnosisName,
         descriptions = @descriptions,

@@ -180,12 +180,15 @@
                                             </td>
                                             <td>{{ $allergy->allergy_type }}</td>
                                             <td>
+                                                <button class="btn btn-sm btn-primary" onclick="editAllergy({{ $allergy->AllergyID }}, '{{ $allergy->allergen }}', '{{ $allergy->reaction }}', '{{ $allergy->severity }}', '{{ $allergy->allergy_type }}')">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
                                                 <form action="{{ route('nurse.allergy.delete', [$allergy->AllergyID, $patient->PatientID]) }}" 
                                                       method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                                        Delete
+                                                        <i class="fas fa-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             </td>
@@ -229,12 +232,15 @@
                                                 <span class="badge bg-secondary">{{ $condition->status }}</span>
                                             </td>
                                             <td>
+                                                <button class="btn btn-sm btn-primary" onclick="editCondition({{ $condition->ConditionID }}, '{{ $condition->condition_name }}', '{{ $condition->status }}')">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
                                                 <form action="{{ route('nurse.condition.delete', [$condition->ConditionID, $patient->PatientID]) }}" 
                                                       method="POST" style="display:inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
-                                                        Delete
+                                                        <i class="fas fa-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             </td>
@@ -354,9 +360,21 @@
                                                     <i class="fas fa-clock"></i> {{ \Carbon\Carbon::parse($note->time_noted)->format('M d, Y H:i') }}
                                                 </small>
                                             </div>
-                                            <span class="badge @if($note->note_priority === 'High') bg-danger @elseif($note->note_priority === 'Medium') bg-warning @else bg-success @endif">
-                                                {{ $note->note_priority }}
-                                            </span>
+                                            <div>
+                                                <span class="badge @if($note->note_priority === 'High') bg-danger @elseif($note->note_priority === 'Medium') bg-warning @else bg-success @endif me-2">
+                                                    {{ $note->note_priority }}
+                                                </span>
+                                                <button class="btn btn-sm btn-primary" onclick="editNote({{ $note->NotesID }}, '{{ addslashes($note->note_title) }}', '{{ addslashes($note->note_description) }}', '{{ $note->note_priority }}')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <form action="{{ route('nurse.note.delete', [$note->NotesID, $patient->PatientID]) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
                                         <p class="card-text mb-0">{{ $note->note_description }}</p>
                                     </div>
@@ -388,6 +406,7 @@
                                         <th style="max-width: 150px;">Diagnosis</th>
                                         <th style="max-width: 250px;">Description</th>
                                         <th style="max-width: 100px;">Status</th>
+                                        <th style="max-width: 120px;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -399,6 +418,18 @@
                                                 <span class="badge @if($diag->status === 'Active') bg-danger @elseif($diag->status === 'Resolved') bg-success @else bg-secondary @endif">
                                                     {{ $diag->status }}
                                                 </span>
+                                            </td>
+                                            <td style="max-width: 120px;">
+                                                <button class="btn btn-sm btn-primary" onclick="editDiagnosis({{ $diag->DiagID }}, '{{ addslashes($diag->diagnosisName) }}', '{{ addslashes($diag->descriptions) }}', '{{ $diag->status }}')">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
+                                                <form action="{{ route('nurse.diagnosis.delete', [$diag->DiagID, $patient->PatientID]) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -439,6 +470,7 @@
                                         <th style="max-width: 80px;">Unit</th>
                                         <th style="max-width: 100px;">Systolic BP</th>
                                         <th style="max-width: 100px;">Diastolic BP</th>
+                                        <th style="max-width: 120px;">Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -463,6 +495,18 @@
                                                 @else
                                                     <span class="text-muted">-</span>
                                                 @endif
+                                            </td>
+                                            <td style="max-width: 120px;">
+                                                <button class="btn btn-sm btn-primary" onclick="editVital({{ $vital->VitalID }}, '{{ $vital->vital_type }}', {{ $vital->value }}, '{{ $vital->unit }}', {{ $vital->SystolicBP ?? 'null' }}, {{ $vital->DiastolicBP ?? 'null' }})">
+                                                    <i class="fas fa-edit"></i> Edit
+                                                </button>
+                                                <form action="{{ route('nurse.vital.delete', [$vital->VitalID, $patient->PatientID]) }}" method="POST" style="display:inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">
+                                                        <i class="fas fa-trash"></i> Delete
+                                                    </button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -861,6 +905,204 @@
     </div>
 </div>
 
+<!-- Edit Allergy Modal -->
+<div class="modal fade" id="editAllergyModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Allergy</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editAllergyForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Allergen *</label>
+                        <input type="text" id="editAllergen" name="allergen" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Reaction *</label>
+                        <input type="text" id="editReaction" name="reaction" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Severity *</label>
+                        <select id="editSeverity" name="severity" class="form-select" required>
+                            <option value="">Select...</option>
+                            <option value="Mild">Mild</option>
+                            <option value="Moderate">Moderate</option>
+                            <option value="Severe">Severe</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Type *</label>
+                        <input type="text" id="editAllergyType" name="allergy_type" class="form-control" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Allergy</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Condition Modal -->
+<div class="modal fade" id="editConditionModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Condition</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editConditionForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Condition Name *</label>
+                        <input type="text" id="editConditionName" name="condition_name" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status *</label>
+                        <select id="editConditionStatus" name="status" class="form-select" required>
+                            <option value="">Select...</option>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Resolved">Resolved</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Condition</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Vital Sign Modal -->
+<div class="modal fade" id="editVitalSignModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Vital Sign</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editVitalForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Vital Type *</label>
+                        <input type="text" id="editVitalType" name="vital_type" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Value *</label>
+                        <input type="number" id="editVitalValue" name="value" class="form-control" step="0.01" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Unit *</label>
+                        <input type="text" id="editVitalUnit" name="unit" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Systolic BP</label>
+                        <input type="number" id="editSystolicBP" name="SystolicBP" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Diastolic BP</label>
+                        <input type="number" id="editDiastolicBP" name="DiastolicBP" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Vital Sign</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Note Modal -->
+<div class="modal fade" id="editNoteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Note</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editNoteForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Title *</label>
+                        <input type="text" id="editNoteTitle" name="note_title" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description *</label>
+                        <textarea id="editNoteDescription" name="note_description" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Priority *</label>
+                        <select id="editNotePriority" name="note_priority" class="form-select" required>
+                            <option value="">Select...</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Note</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Edit Diagnosis Modal -->
+<div class="modal fade" id="editDiagnosisModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Diagnosis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form id="editDiagnosisForm" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Diagnosis Name *</label>
+                        <input type="text" id="editDiagnosisName" name="diagnosisName" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Description *</label>
+                        <textarea id="editDiagnosisDescription" name="descriptions" class="form-control" rows="4" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Status *</label>
+                        <select id="editDiagnosisStatus" name="status" class="form-select" required>
+                            <option value="">Select...</option>
+                            <option value="Active">Active</option>
+                            <option value="Resolved">Resolved</option>
+                            <option value="Under Review">Under Review</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Diagnosis</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @section('scripts')
 <script>
     function setMedication(medId, medName) {
@@ -873,5 +1115,53 @@
         document.getElementById('currentQuantity').value = currentQty;
         document.getElementById('quantityForm').action = `/nurse/medications/${medId}/quantity`;
     }
+
+    // Edit Allergy
+    function editAllergy(allergyId, allergen, reaction, severity, allergyType) {
+        document.getElementById('editAllergen').value = allergen;
+        document.getElementById('editReaction').value = reaction;
+        document.getElementById('editSeverity').value = severity;
+        document.getElementById('editAllergyType').value = allergyType;
+        document.getElementById('editAllergyForm').action = `/nurse/allergies/${allergyId}`;
+        new bootstrap.Modal(document.getElementById('editAllergyModal')).show();
+    }
+
+    // Edit Condition
+    function editCondition(conditionId, conditionName, status) {
+        document.getElementById('editConditionName').value = conditionName;
+        document.getElementById('editConditionStatus').value = status;
+        document.getElementById('editConditionForm').action = `/nurse/conditions/${conditionId}`;
+        new bootstrap.Modal(document.getElementById('editConditionModal')).show();
+    }
+
+    // Edit Vital Sign
+    function editVital(vitalId, vitalType, value, unit, systolic, diastolic) {
+        document.getElementById('editVitalType').value = vitalType;
+        document.getElementById('editVitalValue').value = value;
+        document.getElementById('editVitalUnit').value = unit;
+        document.getElementById('editSystolicBP').value = systolic || '';
+        document.getElementById('editDiastolicBP').value = diastolic || '';
+        document.getElementById('editVitalForm').action = `/nurse/vitals/${vitalId}`;
+        new bootstrap.Modal(document.getElementById('editVitalSignModal')).show();
+    }
+
+    // Edit Note
+    function editNote(noteId, title, description, priority) {
+        document.getElementById('editNoteTitle').value = title;
+        document.getElementById('editNoteDescription').value = description;
+        document.getElementById('editNotePriority').value = priority;
+        document.getElementById('editNoteForm').action = `/nurse/notes/${noteId}`;
+        new bootstrap.Modal(document.getElementById('editNoteModal')).show();
+    }
+
+    // Edit Diagnosis
+    function editDiagnosis(diagnosisId, diagnosisName, description, status) {
+        document.getElementById('editDiagnosisName').value = diagnosisName;
+        document.getElementById('editDiagnosisDescription').value = description;
+        document.getElementById('editDiagnosisStatus').value = status;
+        document.getElementById('editDiagnosisForm').action = `/nurse/diagnosis/${diagnosisId}`;
+        new bootstrap.Modal(document.getElementById('editDiagnosisModal')).show();
+    }
+
 </script>
 @endsection
