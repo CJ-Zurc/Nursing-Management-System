@@ -30,20 +30,27 @@ class NurseController extends Controller
     }
 
     // ============ PATIENT LIST ============
-    public function patients(Request $request)
-    {
-        $nurse = DB::select('EXEC sp_read_nurse_by_id @userID = ' . Auth::id())[0];
-        $search = $request->query('search', '');
-        
-        if ($search) {
-            $patients = DB::select('SELECT * FROM [PATIENT] WHERE WardID = ? AND (CAST(PatientID AS NVARCHAR(MAX)) LIKE ? OR first_name LIKE ? OR last_name LIKE ? OR blood_type LIKE ?)', 
-                [$nurse->WardID, '%' . $search . '%', '%' . $search . '%', '%' . $search . '%', '%' . $search . '%']);
-        } else {
-            $patients = DB::select('EXEC sp_read_patients_by_ward @WardID = ' . $nurse->WardID);
-        }
+ public function patients(Request $request)
+{
+    $nurse = DB::select(
+        'EXEC sp_read_nurse_by_id @userID = ?',
+        [Auth::id()]
+    )[0];
 
-        return view('nurse.patients.index', ['patients' => $patients, 'wardId' => $nurse->WardID, 'search' => $search]);
-    }
+    $search = $request->query('search');
+
+    $patients = DB::select(
+        'EXEC sp_read_patients_by_ward @WardID = ?, @Search = ?',
+        [$nurse->WardID, $search]
+    );
+
+    return view('nurse.patients.index', [
+        'patients' => $patients,
+        'wardId'   => $nurse->WardID,
+        'search'   => $search
+    ]);
+}
+
 
     // ============ PATIENT PROFILE ============
     public function showPatient($id)

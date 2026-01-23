@@ -34,19 +34,20 @@ class AdminController extends Controller
     }
 
     // ============ PATIENT MANAGEMENT ============
-    public function patients(Request $request)
-    {
-        $search = $request->query('search', '');
-        
-        if ($search) {
-            $patients = DB::select('SELECT p.*, w.WardName FROM [PATIENT] p LEFT JOIN [WARD] w ON p.WardID = w.WardID WHERE CAST(p.PatientID AS NVARCHAR(MAX)) LIKE ? OR p.first_name LIKE ? OR p.last_name LIKE ? OR p.contact_Number LIKE ?', 
-                ['%' . $search . '%', '%' . $search . '%', '%' . $search . '%', '%' . $search . '%']);
-        } else {
-            $patients = DB::select('EXEC sp_read_all_patients');
-        }
-        
-        return view('admin.patients.index', ['patients' => $patients, 'search' => $search]);
-    }
+   public function patients(Request $request)
+{
+    $search = $request->query('search');
+
+    $patients = DB::select(
+        'EXEC sp_read_all_patients @Search = ?',
+        [$search]
+    );
+
+    return view('admin.patients.index', [
+        'patients' => $patients,
+        'search' => $search
+    ]);
+}
 
     public function createPatient()
     {

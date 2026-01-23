@@ -467,9 +467,7 @@
                                         <th style="max-width: 150px;">Date & Time</th>
                                         <th style="max-width: 120px;">Vital Type</th>
                                         <th style="max-width: 100px;">Value</th>
-                                        <th style="max-width: 80px;">Unit</th>
-                                        <th style="max-width: 100px;">Systolic BP</th>
-                                        <th style="max-width: 100px;">Diastolic BP</th>
+                                        <th style="max-width: 80px;">Unit</th>                                
                                         <th style="max-width: 120px;">Actions</th>
                                     </tr>
                                 </thead>
@@ -482,20 +480,8 @@
                                             <td style="max-width: 120px;">{{ $vital->vital_type }}</td>
                                             <td style="max-width: 100px;"><strong>{{ $vital->value }}</strong></td>
                                             <td style="max-width: 80px;">{{ $vital->unit }}</td>
-                                            <td style="max-width: 100px;">
-                                                @if($vital->SystolicBP)
-                                                    {{ $vital->SystolicBP }} mmHg
-                                                @else
-                                                    <span class="text-muted">-</span>
-                                                @endif
-                                            </td>
-                                            <td style="max-width: 100px;">
-                                                @if($vital->DiastolicBP)
-                                                    {{ $vital->DiastolicBP }} mmHg
-                                                @else
-                                                    <span class="text-muted">-</span>
-                                                @endif
-                                            </td>
+
+
                                             <td style="max-width: 120px;">
                                                 <button class="btn btn-sm btn-primary" onclick="editVital({{ $vital->VitalID }}, '{{ $vital->vital_type }}', {{ $vital->value }}, '{{ $vital->unit }}', {{ $vital->SystolicBP ?? 'null' }}, {{ $vital->DiastolicBP ?? 'null' }})">
                                                     <i class="fas fa-edit"></i> Edit
